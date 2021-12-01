@@ -1,0 +1,96 @@
+body{
+    background-color: linen;
+}
+.emisetting{
+    padding: 100px 0px 30px;
+}
+.navbar-brand , .nav-link{
+    color: white;
+}
+.navbar a:hover{
+    text-decoration: none;
+    color: white;
+}
+.formcontrol{
+    display: inline-block;
+    width: 90%;
+    height: 40px;
+    outline: none;
+    border: none;
+    -webkit-transition: 0.7s;
+    transition: 0.7s ease;
+    border-bottom: 1px solid black;
+}
+.formcontrol:focus{
+    border-bottom: 2px solid rgb(0, 196, 196);
+}
+.set{
+    font-size: 18px;
+    padding-top: 40px;
+}
+.navbar{
+    border-bottom-left-radius: 40%;
+    border-bottom-right-radius: 40%;
+}
+.main_box{
+    height: 100%;
+    background-color: white;
+}
+#mychart{
+    height: 100%;
+    width: 50%;
+}
+.btnlg{
+    width: 120px;
+    height: 55px;
+    color: white;
+    font-size: 22px;
+    border: 2px solid rgb(44, 160, 44);
+    background-color: rgb(44, 160, 44);
+    border-radius:5px;
+    transition: 0.5s;
+}
+.btnlg:hover{
+    color: rgb(44, 160, 44);
+    border: 2px solid rgb(44, 160, 44);
+    background-color: white;
+    border-radius: 5px;
+}
+#myChart{
+    width: 100px;
+    height: 100px;
+}
+@media(min-width: 768px) and (max-width: 991px){
+    #myChart{
+        width: 100px;
+        height: 100px;
+    }
+}
+@media(min-width: 575px) and (max-width: 767px){
+    #myChart{
+        width: 150px;
+        height: 150px;
+    }
+    .set{
+        font-size: 18px;
+    }
+}
+@media(min-width: 480px) and (max-width: 574px){
+    #myChart{
+        width: 300px;
+        height: 300px;
+    }
+    .set{
+        font-size: 17px;
+    }
+}
+@media (max-width: 479px){
+    #myChart{
+        width: 300px;
+        height: 300px;
+    }
+    .set{
+        font-size: 17px;
+    }
+}
+

@@ -1,0 +1,122 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="emicss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugins-datalabels"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+
+    <title>EMI Calculator</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-success fixed-top">
+        <div class="container">
+            <a href="#" class="navbar-brand">Emi Calculator</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="emisetting">
+        <div class="container"> 
+            <h2 class="text-center" style="color: gray;">Calulate EMI</h2>
+            <div class="row">
+                <div class="col-lg-8 col-10 m-auto d-block">
+                    <div class="form-group"><br>
+                        <label for="loan-amount">Loan Amount: </label>
+                        <input type="number" class="formcontrol" id="loanamt" name="loanamt" required onclick="reload()">
+                    </div>
+                    <div class="form-group">
+                        <label for="Interest-rate">Interest Rate:</label>
+                        <input type="number" class="formcontrol" id="interestrt" name="interestrt" required onclick="reload()">
+                    </div>
+                    <div class="form-group">
+                        <label for="Loan-tenure">Loan Tenure (years):</label>
+                        <input type="number" class="formcontrol" id="loanten" name="loanten" required onclick="reload()">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Calculate" class="btnlg" id="button" onclick="calc()">
+                    </div>
+                </div>
+                <div class="col-lg-10 col-10 m-auto d-block">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h4 class="set"><br><br>
+                                EMI Amount: (₹)<span id="emiamt">0</span><br><br>
+                                Total Interest: (₹)<span id="totinter">0</span><br><br>
+                                Total Payable Amount: (₹)<span id="totpay">0</span><br><br>
+                            </h4>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="main_box" id="main">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    var Interest;
+    function calc() {
+        var loanamt = parseFloat(document.getElementById('loanamt').value);
+        var rate = parseFloat(document.getElementById('interestrt').value);
+        var tenure = parseFloat(document.getElementById('loanten').value);
+        if (isNaN(loanamt) || isNaN(rate) || isNaN(tenure)) {
+            alert("Enter number correctly");
+        }
+        else {
+            var tenmon = tenure * 12;
+            var r = (rate / 12 / 100);
+            var total = loanamt * r * (Math.pow((1 + r), tenmon)) / (Math.pow((1 + r), (tenmon)) - 1);
+            window.Interest = (total * tenmon) - loanamt;
+            document.getElementById("emiamt").innerHTML = Math.round(total);
+            document.getElementById("totinter").innerHTML = Math.round(window.Interest);
+            var totppay = loanamt + window.Interest;
+            document.getElementById("totpay").innerHTML = Math.round(totppay);
+            const ctx = document.getElementById('myChart').getContext('2d');
+            var lbl=['Principle Loan Amount','Total Interest'];
+            var dataa=[loanamt,Interest]
+            let myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Principle Loan Amount', 'Total Interest'],
+                    datasets: [{
+                        label: '# of votes',
+                        data: dataa,
+                        backgroundColor: ['rgb(250, 225 ,4)', '#ff5050'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });  
+        }
+    }
+</script>
+<script>
+    function reload() {
+        var amt=parseFloat(document.getElementById('loanamt').value);
+        var rate = parseFloat(document.getElementById('interestrt').value);
+        var tenure = parseFloat(document.getElementById('loanten').value);
+        if(!isNaN(amt) && !isNaN(rate) && !isNaN(tenure)){
+            $("#main").load(" #main > *");
+        }
+    }
+</script>
+</html>
